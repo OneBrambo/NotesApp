@@ -1,28 +1,48 @@
+<script setup lang="ts">
+
+import {ref} from "vue";
+
+const showModal = ref(false);
+const newNote = ref("");
+const notes = ref([]);
+function getRandomColor() {
+  return "hsl(" + Math.random() * 360 + ", 100%, 75%)";
+}
+const addNote = () => {
+  notes.value.push({
+    id: Math.floor(Math.random() * 1000000),
+    text: newNote.value,
+    date: new Date(),
+    bgColor: getRandomColor(),
+  })
+  showModal.value = false;
+  newNote.value = "";
+}
+</script>
+
 <template>
   <main>
-    <!--
-    <div class="overlay">
+
+    <div v-if="showModal" class="overlay">
       <div class="modal">
-        <textarea name="note" id="note" cols="30" rows="10"></textarea>
-        <button>Add Note</button>
-        <button class="close">Close</button>
+        <textarea v-model="newNote" name="note" id="note" cols="30" rows="10" placeholder="Inserisci qui la tua nota"></textarea>
+        <button @click="addNote">Add Note</button>
+        <button class="close" @click="showModal = false">Close</button>
+
       </div>
     </div>
-    -->
+
     <div class="container">
       <header>
-        <h1>Notes</h1>
-        <button>+</button>
+        <h1>Note</h1>
+        <button @click="showModal = true">+</button>
       </header>
       <div class="cards-container">
-        <div class="card">
-          <p class="main-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente quasi corporis amet perspiciatis, libero est!</p>
-          <p class="date">04/27/6853</p>
+        <div v-for="note in notes"  class="card" :style="{backgroundColor: note.bgColor}">
+          <p class="main-text">{{note.text}}</p>
+          <p class="date">{{note.date.toLocaleDateString()}}</p>
         </div>
-        <div class="card">
-          <p class="main-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente quasi corporis amet perspiciatis, libero est!</p>
-          <p class="date">04/27/6853</p>
-        </div>
+
       </div>
     </div>
   </main>
@@ -67,7 +87,7 @@ header button {
 .card {
   width: 225px;
   height: 225px;
-  background-color: blue;
+  background-color: ;
   padding: 10px;
   border-radius: 15px;
   display: flex;
@@ -85,6 +105,7 @@ header button {
 .cards-container {
   display: flex;
   flex-wrap: wrap;
+
 }
 
 .overlay {
@@ -109,6 +130,7 @@ header button {
 }
 textarea{
   background-color: white;
+  color: black;
   border-radius: 10px;
 }
 .modal button {
