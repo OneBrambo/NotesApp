@@ -1,10 +1,10 @@
-<script setup >
+<script setup lang="ts">
 
 import {ref} from "vue";
 
 const showModal = ref(false);
 const newNote = ref("");
-const notes = ref([]);
+const notes : any = ref([]);
 function getRandomColor() {
   return "hsl(" + Math.random() * 360 + ", 100%, 75%)";
 }
@@ -87,7 +87,7 @@ header button {
 .card {
   width: 225px;
   height: 225px;
-  background-color: ;
+  background-color: blue;
   padding: 10px;
   border-radius: 15px;
   display: flex;
