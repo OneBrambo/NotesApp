@@ -10,8 +10,8 @@ function getRandomColor() {
   return "hsl(" + Math.random() * 360 + ", 100%, 75%)";
 }
 const addNote = () => {
-  if (newNote.value.length < 10){
-    return errorMessage.value = "La nota è più corta di 10 caratteri"
+  if (newNote.value.length < 5){
+    return errorMessage.value = "La nota è più corta di 5 caratteri"
   }
   notes.value.push({
     id: Math.floor(Math.random() * 1000000),
@@ -23,6 +23,7 @@ const addNote = () => {
   errorMessage.value = "";
   newNote.value = "";
 }
+
 </script>
 
 <template>
@@ -138,6 +139,7 @@ textarea{
   background-color: white;
   color: black;
   border-radius: 10px;
+  max-width: 100%;
 }
 .modal button {
   padding: 10px 20px;
